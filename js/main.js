@@ -158,15 +158,15 @@
 
   /* ---------- outboard HP switcher + catalog PDF modal (products page) ---------- */
   var OUTBOARD_DATA = {
-    '3':  { power:'3 HP',  rated:'2.2 kW',  voltage:'48 V',  motor:'Magnetic Synchronous', control:'Tiller',          cooling:'Air',                    rpm:'4500–5000', weight:'13.5 kg',     file:'SEAGÖ - 3HP.pdf' },
-    '7':  { power:'7 HP',  rated:'5.2 kW',  voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'4500–5500', weight:'45 kg',        file:'SEAGÖ - 7 HP.pdf' },
-    '10': { power:'10 HP', rated:'7.3 kW',  voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4250',      weight:'37.5–38 kg',  file:'SEAGÖ - 10 HP.pdf' },
-    '15': { power:'15 HP', rated:'11 kW',   voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4650–4700', weight:'38–39.5 kg',  file:'SEAGÖ - 15 HP.pdf' },
-    '20': { power:'20 HP', rated:'15 kW',   voltage:'96 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'45–48 kg',    file:'SEAGÖ - 20HP.pdf' },
-    '30': { power:'30 HP', rated:'22 kW',   voltage:'96 V',  motor:'Water-cooled PMSM',    control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'52.7 kg',      file:'SEAGÖ - 30 HP.pdf' },
-    '40': { power:'40 HP', rated:'29.4 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'89 kg',        file:'SEAGÖ - 40 HP.pdf' },
-    '60': { power:'60 HP', rated:'44.1 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'115 kg',       file:'SEAGÖ - 60 HP.pdf' },
-    '90': { power:'90 HP', rated:'66 kW',   voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Freshwater closed-loop', rpm:'4500–5500', weight:'115 kg',       file:'SEAGÖ - 90 HP.pdf' }
+    '3':  { power:'3 HP',  rated:'2.2 kW',  voltage:'48 V',  motor:'Magnetic Synchronous', control:'Tiller',          cooling:'Air',                    rpm:'4500–5000', weight:'13.5 kg',     file:'SEAGO-3HP-TDS.pdf' },
+    '7':  { power:'7 HP',  rated:'5.2 kW',  voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'4500–5500', weight:'45 kg',        file:'SEAGO-7HP-TDS.pdf' },
+    '10': { power:'10 HP', rated:'7.3 kW',  voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4250',      weight:'37.5–38 kg',  file:'SEAGO-10HP-TDS.pdf' },
+    '15': { power:'15 HP', rated:'11 kW',   voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4650–4700', weight:'38–39.5 kg',  file:'SEAGO-15HP-TDS.pdf' },
+    '20': { power:'20 HP', rated:'15 kW',   voltage:'96 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'45–48 kg',    file:'SEAGO-20HP-TDS.pdf' },
+    '30': { power:'30 HP', rated:'22 kW',   voltage:'96 V',  motor:'Water-cooled PMSM',    control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'52.7 kg',      file:'SEAGO-30HP-TDS.pdf' },
+    '40': { power:'40 HP', rated:'29.4 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'89 kg',        file:'SEAGO-40HP-TDS.pdf' },
+    '60': { power:'60 HP', rated:'44.1 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'115 kg',       file:'SEAGO-60HP-TDS.pdf' },
+    '90': { power:'90 HP', rated:'66 kW',   voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Freshwater closed-loop', rpm:'4500–5500', weight:'115 kg',       file:'SEAGO-90HP-TDS.pdf' }
   };
   var hpSelect = document.getElementById('hpSelect');
   var outboardBadge = document.getElementById('outboardBadge');
@@ -182,7 +182,7 @@
   function currentHp(){ return hpSelect ? hpSelect.value : '3'; }
   function catalogUrl(hp){
     var d = OUTBOARD_DATA[hp];
-    return d ? encodeURI('Catelog/' + d.file) : '#';
+    return d ? encodeURI('catalog/' + d.file) : '#';
   }
   function renderHp(hp){
     var d = OUTBOARD_DATA[hp];
