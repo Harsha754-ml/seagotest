@@ -69,18 +69,37 @@
       </div>
     </div>
     <div class="product-copy reveal">
-      <span class="case-tag">3–90 HP</span>
+      <span class="case-tag" id="outboardBadge">3–90 HP · 9 models</span>
       <h2>Outboard Motors</h2>
       <p>Compact, near-silent electric outboards built for fishing boats, small ferries, and tourism craft. Instant torque from a standstill, no fuel, no oil changes, and far fewer moving parts than a combustion outboard — so your crew spends less time on maintenance and more time on the water.</p>
-      <div class="spec-grid">
-        <div class="spec-item"><span>Power range</span><b>3 – 90 HP</b></div>
-        <div class="spec-item"><span>Battery compatibility</span><b>48V – 96V packs</b></div>
-        <div class="spec-item"><span>Shaft options</span><b>Short &amp; long shaft</b></div>
-        <div class="spec-item"><span>Control</span><b>Tiller / twist-grip</b></div>
-        <div class="spec-item"><span>Cooling</span><b>Closed water-cooled</b></div>
-        <div class="spec-item"><span>Best for</span><b>Fishing boats, small ferries, tourism craft</b></div>
+      <div class="hp-selector">
+        <label for="hpSelect">Select power</label>
+        <select id="hpSelect" aria-label="Select outboard motor power">
+          <option value="3">3 HP</option>
+          <option value="7">7 HP</option>
+          <option value="10">10 HP</option>
+          <option value="15">15 HP</option>
+          <option value="20">20 HP</option>
+          <option value="30">30 HP</option>
+          <option value="40">40 HP</option>
+          <option value="60">60 HP</option>
+          <option value="90">90 HP</option>
+        </select>
       </div>
-      <a class="btn btn-primary magnetic" href="contact.html">Request a Quote</a>
+      <div class="spec-grid" id="outboardSpecs">
+        <div class="spec-item"><span>Power</span><b data-spec="power">3 HP</b></div>
+        <div class="spec-item"><span>Rated power</span><b data-spec="rated">2.2 kW</b></div>
+        <div class="spec-item"><span>Voltage</span><b data-spec="voltage">48 V</b></div>
+        <div class="spec-item"><span>Motor</span><b data-spec="motor">Magnetic Synchronous</b></div>
+        <div class="spec-item"><span>Control</span><b data-spec="control">Tiller</b></div>
+        <div class="spec-item"><span>Cooling</span><b data-spec="cooling">Air</b></div>
+        <div class="spec-item"><span>Max RPM</span><b data-spec="rpm">4500–5000</b></div>
+        <div class="spec-item"><span>Weight</span><b data-spec="weight">13.5 kg</b></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn btn-outline magnetic" id="moreInfoBtn" type="button">More Info</button>
+        <a class="btn btn-primary magnetic" id="outboardQuoteBtn" href="contact.html">Request a Quote</a>
+      </div>
     </div>
   </div>
 </section>
@@ -225,6 +244,21 @@
   <span class="wa-tip">Chat with us</span>
   <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a>
+<!-- ================= PDF MODAL ================= -->
+<div class="pdf-modal" id="pdfModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+  <div class="pdf-modal__backdrop" data-close-pdf></div>
+  <div class="pdf-modal__box">
+    <div class="pdf-modal__head">
+      <span id="pdfModalTitle">Outboard catalog</span>
+      <button class="pdf-modal__close" type="button" data-close-pdf aria-label="Close catalog viewer">&times;</button>
+    </div>
+    <iframe class="pdf-modal__frame" id="pdfFrame" title="Outboard motor catalog PDF" src=""></iframe>
+    <div class="pdf-modal__foot">
+      <a class="btn btn-outline" id="pdfOpenNew" href="#" target="_blank" rel="noopener">Open in new tab</a>
+      <a class="btn btn-primary" id="pdfDownload" href="#" download>Download PDF</a>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

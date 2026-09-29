@@ -358,6 +358,49 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 .mini-stat b{ display:block; font-size:23px; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--ink); }
 .mini-stat span{ display:block; font-size:11px; font-weight:600; letter-spacing:.7px; text-transform:uppercase; color:var(--muted); margin-top:5px; }
 
+/* ---------- outboard HP selector + actions ---------- */
+.hp-selector{ display:flex; align-items:center; gap:14px; margin-bottom:26px; max-width:560px; }
+.hp-selector label{ font-size:12.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); flex:none; }
+.hp-selector select{
+  flex:1; max-width:280px; padding:13px 38px 13px 15px; border-radius:11px; border:1.5px solid var(--line);
+  font-family:'Inter',sans-serif; font-size:14.5px; font-weight:600; color:var(--ink); background-color:#fff;
+  appearance:none; cursor:pointer; transition:border-color .2s, box-shadow .2s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892A4' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 15px center;
+}
+.hp-selector select:focus{ outline:none; border-color:var(--blue); box-shadow:0 0 0 4px rgba(44,123,229,.12); }
+.product-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+/* ---------- PDF modal viewer ---------- */
+.pdf-modal{ position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:24px; }
+.pdf-modal.open{ display:flex; }
+.pdf-modal__backdrop{ position:absolute; inset:0; background:rgba(7,15,36,.72); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); }
+.pdf-modal__box{
+  position:relative; width:min(960px,100%); height:min(84vh,760px); background:#fff;
+  border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.5);
+}
+.pdf-modal__head{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:16px 22px; border-bottom:1px solid var(--line);
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px;
+}
+.pdf-modal__close{
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff;
+  font-size:20px; line-height:1; cursor:pointer; color:var(--slate); flex:none;
+  transition:border-color .2s, color .2s;
+}
+.pdf-modal__close:hover{ border-color:var(--navy); color:var(--navy); }
+.pdf-modal__frame{ flex:1; width:100%; border:0; background:var(--bg-soft); }
+.pdf-modal__foot{ display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap; padding:16px 22px; border-top:1px solid var(--line); }
+.pdf-modal__foot .btn{ padding:12px 22px; font-size:13.5px; }
+@media (max-width:640px){
+  .pdf-modal{ padding:12px; }
+  .pdf-modal__box{ height:88vh; }
+  .pdf-modal__foot{ justify-content:stretch; }
+  .pdf-modal__foot .btn{ flex:1; justify-content:center; }
+}
+
 /* ================= ABOUT PAGE ================= */
 .about-story{ max-width:760px; margin:0 auto; text-align:center; }
 .about-story p{ font-size:17px; color:var(--slate); line-height:1.85; margin-bottom:22px; }

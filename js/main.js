@@ -156,6 +156,84 @@
     });
   }
 
+  /* ---------- outboard HP switcher + catalog PDF modal (products page) ---------- */
+  var OUTBOARD_DATA = {
+    '3':  { power:'3 HP',  rated:'2.2 kW',  voltage:'48 V',  motor:'Magnetic Synchronous', control:'Tiller',          cooling:'Air',                    rpm:'4500–5000', weight:'13.5 kg',     file:'SEAGÖ - 3HP.pdf' },
+    '7':  { power:'7 HP',  rated:'5.2 kW',  voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'4500–5500', weight:'45 kg',        file:'SEAGÖ - 7 HP.pdf' },
+    '10': { power:'10 HP', rated:'7.3 kW',  voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4250',      weight:'37.5–38 kg',  file:'SEAGÖ - 10 HP.pdf' },
+    '15': { power:'15 HP', rated:'11 kW',   voltage:'72 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'4650–4700', weight:'38–39.5 kg',  file:'SEAGÖ - 15 HP.pdf' },
+    '20': { power:'20 HP', rated:'15 kW',   voltage:'96 V',  motor:'PMSM',                 control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'45–48 kg',    file:'SEAGÖ - 20HP.pdf' },
+    '30': { power:'30 HP', rated:'22 kW',   voltage:'96 V',  motor:'Water-cooled PMSM',    control:'Tiller / Remote', cooling:'Water',                  rpm:'5800',      weight:'52.7 kg',      file:'SEAGÖ - 30 HP.pdf' },
+    '40': { power:'40 HP', rated:'29.4 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'89 kg',        file:'SEAGÖ - 40 HP.pdf' },
+    '60': { power:'60 HP', rated:'44.1 kW', voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Water',                  rpm:'5000–6000', weight:'115 kg',       file:'SEAGÖ - 60 HP.pdf' },
+    '90': { power:'90 HP', rated:'66 kW',   voltage:'144 V', motor:'PMSM',                 control:'Grip / Wheel',    cooling:'Freshwater closed-loop', rpm:'4500–5500', weight:'115 kg',       file:'SEAGÖ - 90 HP.pdf' }
+  };
+  var hpSelect = document.getElementById('hpSelect');
+  var outboardBadge = document.getElementById('outboardBadge');
+  var outboardSpecs = document.getElementById('outboardSpecs');
+  var outboardQuoteBtn = document.getElementById('outboardQuoteBtn');
+  var moreInfoBtn = document.getElementById('moreInfoBtn');
+  var pdfModal = document.getElementById('pdfModal');
+  var pdfFrame = document.getElementById('pdfFrame');
+  var pdfTitle = document.getElementById('pdfModalTitle');
+  var pdfOpenNew = document.getElementById('pdfOpenNew');
+  var pdfDownload = document.getElementById('pdfDownload');
+
+  function currentHp(){ return hpSelect ? hpSelect.value : '3'; }
+  function catalogUrl(hp){
+    var d = OUTBOARD_DATA[hp];
+    return d ? encodeURI('Catelog/' + d.file) : '#';
+  }
+  function renderHp(hp){
+    var d = OUTBOARD_DATA[hp];
+    if(!d) return;
+    if(outboardBadge) outboardBadge.textContent = d.power + ' · ' + d.rated + ' · ' + d.voltage;
+    if(outboardSpecs){
+      var map = { power:d.power, rated:d.rated, voltage:d.voltage, motor:d.motor, control:d.control, cooling:d.cooling, rpm:d.rpm, weight:d.weight };
+      Object.keys(map).forEach(function(k){
+        var el = outboardSpecs.querySelector('[data-spec="' + k + '"]');
+        if(el) el.textContent = map[k];
+      });
+    }
+    if(outboardQuoteBtn) outboardQuoteBtn.setAttribute('href', 'contact.html?motor=outboard-' + hp + 'hp');
+  }
+  function openPdfModal(){
+    var hp = currentHp();
+    var d = OUTBOARD_DATA[hp];
+    if(!d || !pdfModal) return;
+    var url = catalogUrl(hp);
+    if(pdfTitle) pdfTitle.textContent = 'Seagö ' + d.power + ' Outboard — Catalog';
+    if(pdfFrame) pdfFrame.setAttribute('src', url);
+    if(pdfOpenNew) pdfOpenNew.setAttribute('href', url);
+    if(pdfDownload) pdfDownload.setAttribute('href', url);
+    pdfModal.classList.add('open');
+    pdfModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var closeBtn = pdfModal.querySelector('.pdf-modal__close');
+    if(closeBtn) closeBtn.focus();
+  }
+  function closePdfModal(){
+    if(!pdfModal) return;
+    pdfModal.classList.remove('open');
+    pdfModal.setAttribute('aria-hidden', 'true');
+    if(pdfFrame) pdfFrame.setAttribute('src', '');
+    document.body.style.overflow = '';
+    if(moreInfoBtn) moreInfoBtn.focus();
+  }
+  if(hpSelect){
+    renderHp(currentHp());
+    hpSelect.addEventListener('change', function(){ renderHp(currentHp()); });
+  }
+  if(moreInfoBtn) moreInfoBtn.addEventListener('click', openPdfModal);
+  if(pdfModal){
+    pdfModal.querySelectorAll('[data-close-pdf]').forEach(function(el){
+      el.addEventListener('click', closePdfModal);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && pdfModal.classList.contains('open')) closePdfModal();
+    });
+  }
+
   /* ---------- desktop-only motion: magnetic buttons, hero parallax, cursor glow, card tilt ---------- */
   if(window.matchMedia('(hover:hover)').matches){
 
