@@ -57,6 +57,24 @@
     });
   }
 
+  /* ---------- active nav link (highlight the page you're on) ---------- */
+  (function(){
+    var path = window.location.pathname;
+    var current = (path.substring(path.lastIndexOf('/') + 1) || 'index.html').toLowerCase();
+    if(!/\.html$/.test(current)) current = 'index.html';
+    if(current.indexOf('contact') === 0) return; // contact has no nav entry of its own
+
+    document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(function(link){
+      var href = (link.getAttribute('href') || '').split('#')[0].split('?')[0];
+      if(!href) return;
+      var file = href.substring(href.lastIndexOf('/') + 1).toLowerCase();
+      if(file === current){
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+  })();
+
   /* ---------- count-up stats ---------- */
   var counters = document.querySelectorAll('[data-count]');
   var counted = false;
@@ -168,7 +186,8 @@
     '60': { power:'60 HP', rated:'44.1 kW', voltage:'144 V', battery:'144V 300 AH LiFePO4 – Lithium Ferrous Phosphate',             motor:'PMSM',                     control:'Steering Grip - Steering Wheel Controls', sensor:'Magnetic Encoder', rpm:'5000-6000 RPM',   gear:'1.8 (24/13)',   transom:'508mm (max)',         weight:'115 Kg',                  cooling:'Water Cooled',         gearpos:'Forward / Neutral / Reverse', file:'SEAGO-60HP-TDS.pdf' },
     '90': { power:'90 HP', rated:'66 kW',   voltage:'144 V', battery:'144V 400 AH LiFePO4 – Lithium Ferrous Phosphate',             motor:'PMSM',                     control:'Steering Grip - Steering Wheel Controls', sensor:'Magnetic Encoder', rpm:'4500-5500 RPM',   gear:'1.85 (24:13)',  transom:'508mm (max)',         weight:'115 Kg',                  cooling:'Freshwater Closed-loop', gearpos:'Forward / Standing / Shift',  file:'SEAGO-90HP-TDS.pdf' }
   };
-  var hpSelect = document.getElementById('hpSelect');
+  var hpPicker = document.getElementById('hpPicker');
+  var outboardModel = document.getElementById('outboardModel');
   var outboardBadge = document.getElementById('outboardBadge');
   var outboardSpecs = document.getElementById('outboardSpecs');
   var outboardQuoteBtn = document.getElementById('outboardQuoteBtn');
@@ -179,7 +198,7 @@
   var pdfOpenNew = document.getElementById('pdfOpenNew');
   var pdfDownload = document.getElementById('pdfDownload');
 
-  function currentHp(){ return hpSelect ? hpSelect.value : '3'; }
+  var activeHp = '3';
   function catalogUrl(hp){
     var d = OUTBOARD_DATA[hp];
     return d ? encodeURI('catalog/' + d.file) : '#';
@@ -188,6 +207,7 @@
     var d = OUTBOARD_DATA[hp];
     if(!d) return;
     if(outboardBadge) outboardBadge.textContent = d.power + ' · ' + d.rated + ' · ' + d.voltage;
+    if(outboardModel) outboardModel.textContent = 'SEAGÖ ' + d.power;
     if(outboardSpecs){
       var map = { rated:d.rated, voltage:d.voltage, battery:d.battery, motor:d.motor, sensor:d.sensor, control:d.control, rpm:d.rpm, gear:d.gear, transom:d.transom, weight:d.weight, cooling:d.cooling, gearpos:d.gearpos };
       Object.keys(map).forEach(function(k){
@@ -197,11 +217,22 @@
     }
     if(outboardQuoteBtn) outboardQuoteBtn.setAttribute('href', 'contact.html?motor=outboard-' + hp + 'hp');
   }
+  function selectHp(hp){
+    if(!OUTBOARD_DATA[hp]) return;
+    activeHp = hp;
+    if(hpPicker){
+      hpPicker.querySelectorAll('.hp-btn').forEach(function(btn){
+        var on = btn.getAttribute('data-hp') === hp;
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    renderHp(hp);
+  }
   function openPdfModal(){
-    var hp = currentHp();
-    var d = OUTBOARD_DATA[hp];
+    var d = OUTBOARD_DATA[activeHp];
     if(!d || !pdfModal) return;
-    var url = catalogUrl(hp);
+    var url = catalogUrl(activeHp);
     if(pdfTitle) pdfTitle.textContent = 'Seagö ' + d.power + ' Outboard — Catalog';
     if(pdfFrame) pdfFrame.setAttribute('src', url);
     if(pdfOpenNew) pdfOpenNew.setAttribute('href', url);
@@ -220,9 +251,12 @@
     document.body.style.overflow = '';
     if(moreInfoBtn) moreInfoBtn.focus();
   }
-  if(hpSelect){
-    renderHp(currentHp());
-    hpSelect.addEventListener('change', function(){ renderHp(currentHp()); });
+  if(hpPicker){
+    selectHp(activeHp);
+    hpPicker.addEventListener('click', function(e){
+      var btn = e.target.closest('.hp-btn');
+      if(btn) selectHp(btn.getAttribute('data-hp'));
+    });
   }
   if(moreInfoBtn) moreInfoBtn.addEventListener('click', openPdfModal);
   if(pdfModal){

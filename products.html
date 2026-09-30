@@ -27,7 +27,7 @@
       <a href="about.html">About</a>
       <a href="products.html">Products</a>
       <a href="case-studies.html">Case Studies</a>
-      <a href="dealer-network.html">Dealer Network</a>
+      <a href="sea-trials.html">Sea Trials</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-primary magnetic" href="contact.html">Request a Quote</a>
@@ -41,7 +41,7 @@
   <a href="about.html">About</a>
   <a href="products.html">Products</a>
   <a href="case-studies.html">Case Studies</a>
-  <a href="dealer-network.html">Dealer Network</a>
+  <a href="sea-trials.html">Sea Trials</a>
   <a class="btn btn-primary" href="contact.html">Request a Quote</a>
 </div>
 
@@ -72,19 +72,21 @@
       <span class="case-tag" id="outboardBadge">3–90 HP · 9 models</span>
       <h2>Outboard Motors</h2>
       <p>Compact, near-silent electric outboards built for fishing boats, small ferries, and tourism craft. Instant torque from a standstill, no fuel, no oil changes, and far fewer moving parts than a combustion outboard — so your crew spends less time on maintenance and more time on the water.</p>
-      <div class="hp-selector">
-        <label for="hpSelect">Select power</label>
-        <select id="hpSelect" aria-label="Select outboard motor power">
-          <option value="3">3 HP</option>
-          <option value="7">7 HP</option>
-          <option value="10">10 HP</option>
-          <option value="15">15 HP</option>
-          <option value="20">20 HP</option>
-          <option value="30">30 HP</option>
-          <option value="40">40 HP</option>
-          <option value="60">60 HP</option>
-          <option value="90">90 HP</option>
-        </select>
+      <div class="model-line">
+        <span class="model-line__label">Model</span>
+        <b class="model-line__value" id="outboardModel">SEAGÖ 3 HP</b>
+      </div>
+      <div class="hp-picker" id="hpPicker" role="group" aria-label="Select outboard motor power">
+        <button type="button" class="hp-btn is-active" data-hp="3" aria-pressed="true">3</button>
+        <button type="button" class="hp-btn" data-hp="7" aria-pressed="false">7</button>
+        <button type="button" class="hp-btn" data-hp="10" aria-pressed="false">10</button>
+        <button type="button" class="hp-btn" data-hp="15" aria-pressed="false">15</button>
+        <button type="button" class="hp-btn" data-hp="20" aria-pressed="false">20</button>
+        <button type="button" class="hp-btn" data-hp="30" aria-pressed="false">30</button>
+        <button type="button" class="hp-btn" data-hp="40" aria-pressed="false">40</button>
+        <button type="button" class="hp-btn" data-hp="60" aria-pressed="false">60</button>
+        <button type="button" class="hp-btn" data-hp="90" aria-pressed="false">90</button>
+        <span class="hp-picker__unit">HP</span>
       </div>
       <div class="spec-grid" id="outboardSpecs">
         <div class="spec-item"><span>Rated Power</span><b data-spec="rated">2.2 kW</b></div>
@@ -166,20 +168,20 @@
     <div class="product-copy reveal">
       <span class="case-tag">Custom Build</span>
       <h2>Electric &amp; Solar Boats</h2>
-      <p>Full custom boats built on FRP (fibre-reinforced plastic) hulls, fitted with fully electric or solar-hybrid propulsion. We configure the hull, seating, canopy, and power system to your exact use case — fishing, ambulance, tourism, or public ferry transit — and it leaves our Chennai facility ready to launch.</p>
+      <p>Full custom boats built on FRP (fibre-reinforced plastic) hulls, fitted with fully electric or solar-hybrid propulsion. We configure the hull, seating, canopy, and power system to your exact use case — fishing, tourism, or public transport — and it leaves our Chennai facility ready to launch.</p>
       <div class="spec-grid">
         <div class="spec-item"><span>Hull material</span><b>FRP (fibre-reinforced plastic)</b></div>
         <div class="spec-item"><span>Propulsion</span><b>Electric or solar-hybrid</b></div>
-        <div class="spec-item"><span>Configurations</span><b>Fishing, ambulance, tourism, ferry</b></div>
+        <div class="spec-item"><span>Configurations</span><b>Fishing, tourism, ferry</b></div>
         <div class="spec-item"><span>Customization</span><b>Seating, canopy &amp; capacity to spec</b></div>
         <div class="spec-item"><span>Built &amp; delivered from</span><b>Chennai, Tamil Nadu</b></div>
-        <div class="spec-item"><span>Reference build</span><b>Solar ambulance</b></div>
+        <div class="spec-item"><span>Reference builds</span><b>Fishing &amp; public transport vessels</b></div>
       </div>
       <a class="btn btn-primary magnetic" href="contact.html">Request a Quote</a>
     </div>
     <div class="product-media reveal">
       <div class="ph photo-frame">
-        <img src="assets/photos/seago-solar-boat.jpg" alt="Seagö solar-powered boat on the water">
+        <img src="assets/photos/seago-solar-boat.jpg" alt="Seagö electric passenger ferry on the water">
         <span class="ph__chip">04 · Electric &amp; Solar Boats</span>
       </div>
     </div>
@@ -223,21 +225,23 @@
         <a href="about.html">About Us</a>
         <a href="about.html#founder">Leadership</a>
         <a href="case-studies.html">Case Studies</a>
-        <a href="dealer-network.html">Dealer Network</a>
+        <a href="sea-trials.html">Sea Trials</a>
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <a href="contact.html">Karunagappally, Kerala</a>
+        <a href="contact.html">Kerala, India</a>
         <a href="contact.html">Chennai, Tamil Nadu</a>
         <a href="mailto:sales@seago.in">sales@seago.in</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Seagö. All rights reserved.</span>
+      <!-- TODO: replace href="#" with the real Seago profile URLs once the accounts are created -->
       <div class="footer-social">
-        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
-        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H21l-6.6 7.5L22 22h-6.5l-5-6.6L4.7 22H2.6l7-8-7.3-9.9h6.6l4.5 6z"/></svg></a>
-        <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 3H3.6A.6.6 0 0 0 3 3.6v16.8a.6.6 0 0 0 .6.6h16.8a.6.6 0 0 0 .6-.6V3.6a.6.6 0 0 0-.6-.6zM8.3 18.1H5.7V9.9h2.6v8.2zM7 8.8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.1 9.3h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H9.7V9.9h2.5v1.1a2.7 2.7 0 0 1 2.5-1.4c2.6 0 3.1 1.7 3.1 4v4.5z"/></svg></a>
+        <a href="#" data-social="facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" data-social="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.3a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg></a>
+        <a href="#" data-social="twitter" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H21l-6.6 7.5L22 22h-6.5l-5-6.6L4.7 22H2.6l7-8-7.3-9.9h6.6l4.5 6z"/></svg></a>
+        <a href="#" data-social="linkedin" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 3H3.6A.6.6 0 0 0 3 3.6v16.8a.6.6 0 0 0 .6.6h16.8a.6.6 0 0 0 .6-.6V3.6a.6.6 0 0 0-.6-.6zM8.3 18.1H5.7V9.9h2.6v8.2zM7 8.8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.1 9.3h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H9.7V9.9h2.5v1.1a2.7 2.7 0 0 1 2.5-1.4c2.6 0 3.1 1.7 3.1 4v4.5z"/></svg></a>
       </div>
     </div>
   </div>
