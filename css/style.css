@@ -72,6 +72,10 @@ a{text-decoration:none; color:inherit;}
 .case-gallery{ position:relative; }
 .case-gallery img{ position:absolute; inset:0; opacity:0; transition:opacity .8s ease; }
 .case-gallery img.is-active{ opacity:1; }
+/* fitted single photo: show the whole image, no frame chrome */
+.ph.photo-frame.fit-photo{ background:transparent; border:0; border-radius:0; aspect-ratio:auto; }
+.ph.photo-frame.fit-photo img{ position:static; width:100%; height:auto; object-fit:contain; opacity:1; }
+.product-media:hover .ph.photo-frame.fit-photo{ border-color:transparent; box-shadow:none; }
 .ph{
   position:relative; border-radius:var(--radius); overflow:hidden;
   background:repeating-linear-gradient(135deg, var(--ph-a), var(--ph-a) 14px, var(--ph-b) 14px, var(--ph-b) 28px);
