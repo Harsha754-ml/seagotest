@@ -446,6 +446,7 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 .reel-grid .trial-card video{ background:#0B1D3D; }
 
 .gallery-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+.wrap-wide{ max-width:1400px; }
 .gallery-item{
   position:relative; margin:0; overflow:hidden; border-radius:16px;
   border:1px solid var(--line); background:#0B1D3D; aspect-ratio:4/3;
