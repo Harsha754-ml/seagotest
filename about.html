@@ -31,7 +31,7 @@
       <a href="know-more.html">Know More</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary magnetic" href="contact.html">Request a Quote</a>
+      <a class="btn btn-primary magnetic" href="contact.html" data-quote-open>Request a Quote</a>
       <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -43,7 +43,7 @@
   <a href="products.html">Products</a>
   <a href="case-studies.html">Case Studies</a>
   <a href="know-more.html">Know More</a>
-  <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+  <a class="btn btn-primary" href="contact.html" data-quote-open>Request a Quote</a>
 </div>
 
 <!-- ================= PAGE HEADER ================= -->
@@ -203,7 +203,7 @@
         <h2 class="cta-title">Want to see it in person?</h2>
         <p class="cta-text">Get in touch and we'll walk you through the range, our manufacturing process, and what it takes to electrify your fleet.</p>
         <div class="cta-actions">
-          <a class="btn btn-primary magnetic" href="contact.html">Request a Quote</a>
+          <a class="btn btn-primary magnetic" href="contact.html" data-quote-open>Request a Quote</a>
           <a class="btn btn-ghost magnetic" href="case-studies.html">View Case Studies</a>
         </div>
       </div>
@@ -257,6 +257,74 @@
   <span class="wa-tip">Chat with us</span>
   <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a>
+
+
+<!-- ================= QUOTE MODAL ================= -->
+<div class="quote-modal" id="quoteModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
+  <div class="quote-modal__backdrop" data-close-quote></div>
+  <div class="quote-modal__box">
+    <div class="quote-modal__head">
+      <div class="quote-modal__intro">
+        <span class="eyebrow" style="color:var(--blue)">REQUEST A QUOTE</span>
+        <h3 id="quoteModalTitle">Tell us about your boat</h3>
+        <p>Share your vessel size, use case, and timeline — our team will get back to you with pricing, specs, and lead time within one business day.</p>
+      </div>
+      <button class="quote-modal__close" type="button" data-close-quote aria-label="Close quote form">&times;</button>
+    </div>
+    <div class="quote-modal__body">
+      <form id="quoteModalForm" class="quote-form">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="New Quote Request — Seagö Website">
+        <input type="hidden" name="from_name" value="Seagö Website">
+        <input type="checkbox" name="botcheck" class="hidden-field" tabindex="-1" autocomplete="off">
+
+        <div class="field-row">
+          <div class="field">
+            <label for="qm-name">Full Name *</label>
+            <input id="qm-name" type="text" name="name" required>
+          </div>
+          <div class="field">
+            <label for="qm-company">Company Name</label>
+            <input id="qm-company" type="text" name="company">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="qm-email">Email *</label>
+            <input id="qm-email" type="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="qm-phone">Phone</label>
+            <input id="qm-phone" type="tel" name="phone">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="qm-interest">Product Interest</label>
+          <select id="qm-interest" name="product_interest">
+            <option value="">Select an option</option>
+            <option>Outboard Motor</option>
+            <option>Battery Pack</option>
+            <option>Electric / Solar Boat</option>
+            <option>Service &amp; Spares Support</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="qm-message">Your Requirements *</label>
+          <textarea id="qm-message" name="message" rows="4" required placeholder="Tell us about your boat size, use case, and timeline..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">
+          <span class="btn-label">Send Request</span>
+        </button>
+        <div class="form-msg" id="qmFormMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

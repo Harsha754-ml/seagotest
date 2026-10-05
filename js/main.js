@@ -116,36 +116,46 @@
     }, 4000);
   });
 
-  /* ---------- Web3Forms: Request a Quote (contact page) ---------- */
-  var quoteForm = document.getElementById('quoteForm');
-  if(quoteForm){
-    quoteForm.addEventListener('submit', function(e){
+  /* ---------- Web3Forms: Request a Quote (inline form on contact page + modal everywhere) ---------- */
+  /* OWNER SETUP: paste your Web3Forms access key (web3forms.com → Settings → Access Request) between the quotes. */
+  var WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+  document.querySelectorAll('form.quote-form [name="access_key"]').forEach(function(el){
+    el.value = WEB3FORMS_ACCESS_KEY;
+  });
+
+  function bindQuoteForm(form){
+    if(!form) return;
+    var msg = form.querySelector('.form-msg');
+    var btn = form.querySelector('.form-submit');
+    var label = btn ? btn.querySelector('.btn-label') : null;
+
+    form.addEventListener('submit', function(e){
       e.preventDefault();
-      var msg = document.getElementById('formMsg');
-      var btn = quoteForm.querySelector('.form-submit');
-      var label = btn.querySelector('.btn-label');
-      var accessKey = quoteForm.querySelector('[name="access_key"]').value;
+      var keyInput = form.querySelector('[name="access_key"]');
+      var accessKey = WEB3FORMS_ACCESS_KEY || (keyInput ? keyInput.value : '');
 
       // Guard: the site owner must swap in a real Web3Forms access key (web3forms.com) before this goes live.
       if(!accessKey || accessKey.indexOf('YOUR_') === 0){
-        msg.textContent = "This form isn't fully connected yet — a Web3Forms access key still needs to be added. Please reach us on WhatsApp or email sales@seago.in in the meantime.";
-        msg.className = 'form-msg is-error';
+        if(msg){
+          msg.textContent = "This form isn't fully connected yet — a Web3Forms access key still needs to be added. Please reach us on WhatsApp or email sales@seago.in in the meantime.";
+          msg.className = 'form-msg is-error';
+        }
         return;
       }
 
       // Honeypot: if this hidden field got filled in, silently drop the submission.
-      var honeypot = quoteForm.querySelector('[name="botcheck"]');
+      var honeypot = form.querySelector('[name="botcheck"]');
       if(honeypot && honeypot.checked) return;
 
-      btn.disabled = true;
-      var originalLabel = label.textContent;
-      label.textContent = 'Sending…';
-      msg.textContent = '';
-      msg.className = 'form-msg';
+      if(btn) btn.disabled = true;
+      var originalLabel = label ? label.textContent : '';
+      if(label) label.textContent = 'Sending…';
+      if(msg){ msg.textContent = ''; msg.className = 'form-msg'; }
 
-      var formData = new FormData(quoteForm);
+      var formData = new FormData(form);
       var payload = {};
       formData.forEach(function(value, key){ payload[key] = value; });
+      payload.access_key = accessKey;
 
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -155,24 +165,84 @@
         .then(function(res){ return res.json(); })
         .then(function(data){
           if(data && data.success){
-            msg.textContent = "Thanks — we've received your request and will get back to you within one business day.";
-            msg.className = 'form-msg is-success';
-            quoteForm.reset();
+            if(msg){
+              msg.textContent = "Thanks — we've received your request and will get back to you within one business day.";
+              msg.className = 'form-msg is-success';
+            }
+            form.reset();
           } else {
-            msg.textContent = (data && data.message) || 'Something went wrong sending your request. Please try again or email us directly.';
-            msg.className = 'form-msg is-error';
+            if(msg){
+              msg.textContent = (data && data.message) || 'Something went wrong sending your request. Please try again or email us directly.';
+              msg.className = 'form-msg is-error';
+            }
           }
         })
         .catch(function(){
-          msg.textContent = 'Something went wrong sending your request. Please try again or email us directly at sales@seago.in.';
-          msg.className = 'form-msg is-error';
+          if(msg){
+            msg.textContent = 'Something went wrong sending your request. Please try again or email us directly at sales@seago.in.';
+            msg.className = 'form-msg is-error';
+          }
         })
         .finally(function(){
-          btn.disabled = false;
-          label.textContent = originalLabel;
+          if(btn) btn.disabled = false;
+          if(label) label.textContent = originalLabel;
         });
     });
   }
+  bindQuoteForm(document.getElementById('quoteForm'));
+  bindQuoteForm(document.getElementById('quoteModalForm'));
+
+  /* ---------- quote modal (opens from every "Request a Quote" button) ---------- */
+  var quoteModal = document.getElementById('quoteModal');
+  var quoteReturnFocus = null;
+  function prefillMotor(trigger){
+    var href = trigger ? (trigger.getAttribute('href') || '') : '';
+    var hasMotor = /[?&]motor=/.test(href) || /[?&]motor=/.test(window.location.search);
+    if(!hasMotor) return;
+    document.querySelectorAll('select[name="product_interest"]').forEach(function(sel){ sel.value = 'Outboard Motor'; });
+  }
+  function openQuoteModal(trigger){
+    if(!quoteModal) return;
+    quoteReturnFocus = trigger || null;
+    prefillMotor(trigger);
+    quoteModal.classList.add('open');
+    quoteModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var first = quoteModal.querySelector('.quote-modal__body input:not([type="hidden"]), .quote-modal__body select, .quote-modal__body textarea');
+    if(first) first.focus();
+  }
+  function closeQuoteModal(){
+    if(!quoteModal) return;
+    quoteModal.classList.remove('open');
+    quoteModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if(quoteReturnFocus && quoteReturnFocus.focus) quoteReturnFocus.focus();
+    quoteReturnFocus = null;
+  }
+  if(quoteModal){
+    quoteModal.querySelectorAll('[data-close-quote]').forEach(function(el){
+      el.addEventListener('click', closeQuoteModal);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && quoteModal.classList.contains('open')) closeQuoteModal();
+    });
+  }
+
+  var inlineQuoteForm = document.getElementById('quoteForm');
+  document.addEventListener('click', function(e){
+    var trigger = e.target.closest('[data-quote-open]');
+    if(!trigger) return;
+    e.preventDefault();
+    // On the contact page the real form is already on screen — scroll to it instead of stacking a modal on top.
+    if(inlineQuoteForm){
+      inlineQuoteForm.scrollIntoView({ behavior:'smooth', block:'center' });
+      var focusTarget = inlineQuoteForm.querySelector('input:not([type="hidden"])');
+      if(focusTarget) setTimeout(function(){ focusTarget.focus({ preventScroll:true }); }, 600);
+      return;
+    }
+    openQuoteModal(trigger);
+  });
+  if(/[?&]motor=/.test(window.location.search)) prefillMotor(null);
 
   /* ---------- outboard HP switcher + catalog PDF modal (products page) ---------- */
   var OUTBOARD_DATA = {
