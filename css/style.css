@@ -394,7 +394,7 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 
 .product-actions{ display:flex; gap:14px; flex-wrap:wrap; }
 
-/* ---------- Sea Trials: video grid + note card ---------- */
+/* ---------- Know More: video grid + note card ---------- */
 .trial-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 .trial-card{
   display:flex; flex-direction:column; height:100%; overflow:hidden;
