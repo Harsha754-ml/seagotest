@@ -118,7 +118,7 @@
 
   /* ---------- Web3Forms: Request a Quote (inline form on contact page + modal everywhere) ---------- */
   /* OWNER SETUP: paste your Web3Forms access key (web3forms.com → Settings → Access Request) between the quotes. */
-  var WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+  var WEB3FORMS_ACCESS_KEY = '12fe7002-524c-4c4c-a9c9-cd31891d7432';
   document.querySelectorAll('form.quote-form [name="access_key"]').forEach(function(el){
     el.value = WEB3FORMS_ACCESS_KEY;
   });

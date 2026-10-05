@@ -390,7 +390,7 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 
 .product-actions{ display:flex; gap:14px; flex-wrap:wrap; }
 
-/* ---------- Know More: video grid + note card ---------- */
+/* ---------- Gallery page: video grid + note card ---------- */
 .trial-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 .trial-card{
   display:flex; flex-direction:column; height:100%; overflow:hidden;
@@ -428,7 +428,7 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 }
 .trial-link:hover{ gap:11px; }
 
-/* ---------- Know More: featured video, portrait reels, photo gallery ---------- */
+/* ---------- Gallery page: featured video, portrait reels, photo gallery ---------- */
 .featured-video{ position:relative; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#000; }
 .featured-video video{ display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#000; }
 .featured-cap{
