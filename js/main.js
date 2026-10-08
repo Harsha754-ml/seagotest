@@ -253,8 +253,7 @@
     '20': { power:'20 HP', rated:'15 kW',   voltage:'96 V',  battery:'96V 200 AH or 96V 230 AH LiFePO4 – Lithium Ferrous Phosphate', motor:'PMSM',                     control:'Tiller / Remote Control',                 sensor:'Magnetic Encoder', rpm:'5800 RPM',        gear:'2.08',          transom:'S:440mm / L:570mm',   weight:'S:45 Kg / L:48 Kg',     cooling:'Water Cooled',         gearpos:'Forward/Neutral/Reverse',     file:'SEAGÖ - 20HP.pdf' },
     '30': { power:'30 HP', rated:'22 kW',   voltage:'96 V',  battery:'96V 230 AH LiFePO4 – Lithium Ferrous Phosphate',              motor:'Water cooled PMSM',        control:'Infinitely variable speed',               sensor:'—',                rpm:'5800 RPM',        gear:'—',             transom:'550mm',               weight:'52.7 Kgs',               cooling:'Water Cooling',        gearpos:'Forward / Reverse (Switch)',  file:'SEAGÖ - 30 HP.pdf' },
     '40': { power:'40 HP', rated:'29.4 kW', voltage:'144 V', battery:'144V 200 AH LiFePO4 – Lithium Ferrous Phosphate',             motor:'PMSM',                     control:'Steering Grip - Steering Wheel Controls', sensor:'Magnetic Encoder', rpm:'5000-6000 RPM',   gear:'2.0',           transom:'508mm (max)',         weight:'89 Kg',                   cooling:'Water Cooled',         gearpos:'Forward / Neutral / Reverse', file:'SEAGÖ - 40 HP.pdf' },
-    '60': { power:'60 HP', rated:'44.1 kW', voltage:'144 V', battery:'144V 300 AH LiFePO4 – Lithium Ferrous Phosphate',             motor:'PMSM',                     control:'Steering Grip - Steering Wheel Controls', sensor:'Magnetic Encoder', rpm:'5000-6000 RPM',   gear:'1.8 (24/13)',   transom:'508mm (max)',         weight:'115 Kg',                  cooling:'Water Cooled',         gearpos:'Forward / Neutral / Reverse', file:'SEAGÖ - 60 HP.pdf' },
-    '90': { power:'90 HP', rated:'66 kW',   voltage:'144 V', battery:'144V 400 AH LiFePO4 – Lithium Ferrous Phosphate',             motor:'PMSM',                     control:'Steering Grip - Steering Wheel Controls', sensor:'Magnetic Encoder', rpm:'4500-5500 RPM',   gear:'1.85 (24:13)',  transom:'508mm (max)',         weight:'115 Kg',                  cooling:'Freshwater Closed-loop', gearpos:'Forward / Standing / Shift',  file:'SEAGÖ - 90 HP.pdf' }
+    '50': { power:'50 HP', comingSoon:true }
   };
   var hpPicker = document.getElementById('hpPicker');
   var outboardModel = document.getElementById('outboardModel');
@@ -262,6 +261,7 @@
   var outboardSpecs = document.getElementById('outboardSpecs');
   var outboardQuoteBtn = document.getElementById('outboardQuoteBtn');
   var moreInfoBtn = document.getElementById('moreInfoBtn');
+  var specPending = document.getElementById('specPending');
   var pdfModal = document.getElementById('pdfModal');
   var pdfFrame = document.getElementById('pdfFrame');
   var pdfTitle = document.getElementById('pdfModalTitle');
@@ -276,15 +276,18 @@
   function renderHp(hp){
     var d = OUTBOARD_DATA[hp];
     if(!d) return;
-    if(outboardBadge) outboardBadge.textContent = d.power + ' · ' + d.rated + ' · ' + d.voltage;
+    var soon = !!d.comingSoon;
+    if(outboardBadge) outboardBadge.textContent = soon ? d.power + ' · Coming soon' : d.power + ' · ' + d.rated + ' · ' + d.voltage;
     if(outboardModel) outboardModel.textContent = 'SEAGÖ ' + d.power;
     if(outboardSpecs){
       var map = { rated:d.rated, voltage:d.voltage, battery:d.battery, motor:d.motor, sensor:d.sensor, control:d.control, rpm:d.rpm, gear:d.gear, transom:d.transom, weight:d.weight, cooling:d.cooling, gearpos:d.gearpos };
       Object.keys(map).forEach(function(k){
         var el = outboardSpecs.querySelector('[data-spec="' + k + '"]');
-        if(el) el.textContent = map[k];
+        if(el) el.textContent = map[k] || '—';
       });
     }
+    if(specPending) specPending.hidden = !soon;
+    if(moreInfoBtn) moreInfoBtn.disabled = soon;
     if(outboardQuoteBtn) outboardQuoteBtn.setAttribute('href', 'contact.html?motor=outboard-' + hp + 'hp');
   }
   function selectHp(hp){
@@ -301,7 +304,7 @@
   }
   function openPdfModal(){
     var d = OUTBOARD_DATA[activeHp];
-    if(!d || !pdfModal) return;
+    if(!d || d.comingSoon || !pdfModal) return;
     var url = catalogUrl(activeHp);
     if(pdfTitle) pdfTitle.textContent = 'Seagö ' + d.power + ' Outboard — Catalog';
     if(pdfFrame) pdfFrame.setAttribute('src', url);

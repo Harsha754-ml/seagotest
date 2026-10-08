@@ -49,6 +49,7 @@ a{text-decoration:none; color:inherit;}
 .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,.1); }
 .btn-outline{ background:transparent; color:var(--navy); border-color:var(--line); }
 .btn-outline:hover{ border-color:var(--navy); }
+.btn:disabled{ opacity:.5; cursor:not-allowed; pointer-events:none; }
 .magnetic{ will-change:transform; }
 
 /* ---------- skeleton placeholders (empty headers / copy) ---------- */
@@ -360,6 +361,7 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 .spec-item{ padding-top:14px; border-top:1px solid var(--line); }
 .spec-item span{ display:block; font-size:11.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
 .spec-item b{ font-size:14.5px; font-weight:600; color:var(--ink); }
+.spec-pending{ font-size:14px; color:var(--muted); margin:-20px 0 30px; }
 .mini-stats{ display:flex; gap:36px; margin:28px 0 34px; flex-wrap:wrap; }
 .mini-stat b{ display:block; font-size:23px; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--ink); }
 .mini-stat span{ display:block; font-size:11px; font-weight:600; letter-spacing:.7px; text-transform:uppercase; color:var(--muted); margin-top:5px; }
