@@ -313,7 +313,7 @@ header.nav .wrap{
 /* ================= FOOTER ================= */
 footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:40px; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:54px; border-bottom:1px solid rgba(255,255,255,.1); }
-.footer-logo img{ height:24px; margin-bottom:20px; }
+.footer-logo img{ height:40px; margin-bottom:20px; }
 .footer-grid p{ font-size:13.5px; line-height:1.75; max-width:280px; color:#8B98AE; }
 .footer-col h5{ font-size:12px; letter-spacing:1.6px; text-transform:uppercase; color:#fff; margin-bottom:20px; font-weight:700; font-family:'Space Grotesk',sans-serif; }
 .footer-col a{ display:block; font-size:14px; color:#8B98AE; margin-bottom:13px; transition:color .2s; }
