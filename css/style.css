@@ -354,6 +354,11 @@ footer{ background:var(--navy); color:#B9C3D4; padding:76px 0 30px; margin-top:4
 #hydrogen .product-media .ph,
 .product-media:has(.hydrogen-image) .ph,
 .ph:has(.hydrogen-image){ aspect-ratio:1372/908; }
+/* outboard: let the frame grow to the spec column's height so image and info sit level */
+@media (min-width:981px){
+  .product-media:has(.outboard-image){ align-self:stretch; }
+  .product-media:has(.outboard-image) .ph{ aspect-ratio:auto; height:100%; }
+}
 .product-copy .case-tag{ margin-bottom:14px; }
 .product-copy h2{ font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,38px); font-weight:700; letter-spacing:-0.01em; margin-bottom:18px; }
 .product-copy > p{ color:var(--slate); font-size:15.5px; line-height:1.8; margin-bottom:30px; max-width:520px; }
